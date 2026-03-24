@@ -1,21 +1,21 @@
 package ruinacompat.patches;
 
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
-import com.evacipated.cardcrawl.modthespire.lib.SpirePostfixPatch;
-import com.megacrit.cardcrawl.rooms.AbstractRoom;
+import com.evacipated.cardcrawl.modthespire.lib.SpirePrefixPatch;
+import com.megacrit.cardcrawl.monsters.MonsterGroup;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import java.util.ArrayList;
 
-@SpirePatch2(clz = AbstractRoom.class, method = "onPlayerEntry")
+@SpirePatch2(clz = MonsterGroup.class, method = "update")
 public class BattleStartPatch {
 
-    @SpirePostfixPatch
-    public static void postfix(AbstractRoom __instance) {
+    @SpirePrefixPatch
+    public static void prefix(MonsterGroup __instance) {
         try {
-            if (__instance.monsters == null || __instance.monsters.monsters == null) return;
+            if (__instance.monsters == null) return;
 
-            ArrayList<AbstractMonster> copy = new ArrayList<>(__instance.monsters.monsters);
+            ArrayList<AbstractMonster> copy = new ArrayList<>(__instance.monsters);
             for (AbstractMonster m : copy) {
                 if (m == null) continue;
 
@@ -28,6 +28,7 @@ public class BattleStartPatch {
                     m.currentHealth = 1;
                 }
             }
+
         } catch (Exception e) {
             System.out.println("[RuinaCompatMod] BattleStartPatch error: " + e.getMessage());
         }
