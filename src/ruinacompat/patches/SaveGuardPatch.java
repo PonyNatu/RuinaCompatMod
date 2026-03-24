@@ -1,3 +1,4 @@
+/*
 package ruinacompat.patches;
 
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
@@ -30,3 +31,4 @@ public class SaveGuardPatch {
         return SpireReturn.Continue();
     }
 }
+*/
