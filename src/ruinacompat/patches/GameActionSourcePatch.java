@@ -1,3 +1,4 @@
+/*
 package ruinacompat.patches;
 
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
@@ -43,3 +44,4 @@ public class GameActionSourcePatch {
         return name.contains("Damage") || name.contains("Attack") || name.contains("Strike");
     }
 }
+*/
