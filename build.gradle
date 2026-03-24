@@ -30,7 +30,6 @@ jar {
     archiveFileName = 'RuinaCompatMod.jar'
     destinationDirectory = file('output')
     from sourceSets.main.output
-    from('src') { include 'ModTheSpire.json' }
     manifest {
         attributes('ModTheSpire-Mod': 'true')
     }
