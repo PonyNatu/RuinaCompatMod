@@ -7,7 +7,7 @@ import com.megacrit.cardcrawl.helpers.SaveHelper;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 
-@SpirePatch2(clz = SaveHelper.class, method = "saveGame")
+@SpirePatch2(clz = SaveHelper.class, method = "save")
 public class SaveGuardPatch {
 
     @SpirePrefixPatch
