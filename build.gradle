@@ -1,0 +1,37 @@
+plugins {
+    id 'java'
+}
+
+group = 'ruinacompat'
+version = '1.0.0'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+dependencies {
+    compileOnly fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+sourceSets {
+    main {
+        java { srcDirs = ['src'] }
+        resources {
+            srcDirs = ['src']
+            include '**/*.json'
+        }
+    }
+}
+
+compileJava.options.encoding = 'UTF-8'
+
+jar {
+    archiveFileName = 'RuinaCompatMod.jar'
+    destinationDirectory = file('output')
+    from sourceSets.main.output
+    from('src') { include 'ModTheSpire.json' }
+    manifest {
+        attributes('ModTheSpire-Mod': 'true')
+    }
+}

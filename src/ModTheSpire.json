@@ -1,0 +1,9 @@
+{
+  "modid": "RuinaCompatMod",
+  "name": "Ruina Compat Patch",
+  "description": "Fixes crashes when using Ruina mod with Together in Spire.",
+  "version": "1.0.0",
+  "sts_version": "12-22-2023",
+  "mts_version": "3.23.1",
+  "dependencies": ["basemod"]
+}
