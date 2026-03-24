@@ -5,10 +5,7 @@ import com.evacipated.cardcrawl.modthespire.lib.SpirePrefixPatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpireReturn;
 import com.megacrit.cardcrawl.actions.common.DamageAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
-import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-
-import java.lang.reflect.Field;
 
 @SpirePatch2(clz = DamageAction.class, method = "update")
 public class DamageActionPatch {
@@ -16,29 +13,20 @@ public class DamageActionPatch {
     @SpirePrefixPatch
     public static SpireReturn<Void> prefix(DamageAction __instance) {
         try {
+            AbstractCreature source = __instance.source;
             AbstractCreature target = __instance.target;
 
-            // 🔥 Reflectionでinfo取得
-            Field f = DamageAction.class.getDeclaredField("info");
-            f.setAccessible(true);
-            DamageInfo info = (DamageInfo) f.get(__instance);
-
-            if (target == null || info == null || info.owner == null) {
-                __instance.isDone = true;
-                return SpireReturn.Return(null);
-            }
-
-            if (target instanceof AbstractMonster) {
-                AbstractMonster m = (AbstractMonster) target;
-                if (m.isDead || m.isDying) {
+            if (source instanceof AbstractMonster) {
+                AbstractMonster sm = (AbstractMonster) source;
+                if (sm.isDead || sm.isDying) {
                     __instance.isDone = true;
                     return SpireReturn.Return(null);
                 }
             }
 
-            if (info.owner instanceof AbstractMonster) {
-                AbstractMonster src = (AbstractMonster) info.owner;
-                if (src.isDead || src.isDying) {
+            if (target instanceof AbstractMonster) {
+                AbstractMonster tm = (AbstractMonster) target;
+                if (tm.isDead || tm.isDying) {
                     __instance.isDone = true;
                     return SpireReturn.Return(null);
                 }
@@ -46,8 +34,6 @@ public class DamageActionPatch {
 
         } catch (Exception e) {
             System.out.println("[RuinaCompatMod] DamageActionPatch error: " + e.getMessage());
-            __instance.isDone = true;
-            return SpireReturn.Return(null);
         }
         return SpireReturn.Continue();
     }
